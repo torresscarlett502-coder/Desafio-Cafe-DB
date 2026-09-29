@@ -1,0 +1,101 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Georgia, 'Times New Roman', serif; }
+
+body {
+  min-height: 100vh;
+  background: url('../img/login-fondo.jpg') center/cover no-repeat fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 8%;
+  gap: 40px;
+}
+
+/* Decorative corner leaves */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: rgba(75, 54, 33, .55);
+  z-index: 0;
+  pointer-events: none;
+}
+body::before { top: -90px; left: -90px; }
+body::after { bottom: -90px; right: -90px; }
+
+/* Left branding */
+.brand { color: #f5efe6; max-width: 480px; z-index: 1; }
+.brand .logo-line { display: flex; align-items: center; gap: 18px; }
+.brand svg { width: 70px; height: 70px; stroke: #f5efe6; }
+.brand h1 { font-size: 44px; font-weight: 600; letter-spacing: 1px; line-height: 1.15; }
+.brand .tagline { margin-top: 8px; font-size: 15px; color: #e6d9c5; letter-spacing: 1px; }
+.brand .divider { width: 60px; height: 1px; background: #d8c39a; margin: 22px 0; }
+.brand .frase { font-style: italic; font-size: 26px; color: #efe3cd; font-family: 'Brush Script MT', 'Segoe Script', cursive; line-height: 1.4; }
+
+/* Login card */
+.card {
+  background: rgba(247, 243, 234, .97);
+  width: 400px;
+  border-radius: 14px;
+  padding: 40px 42px 28px;
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(0,0,0,.45);
+  z-index: 1;
+}
+.card .cup { font-size: 46px; }
+.card h2 { font-size: 26px; color: #4a3626; margin-top: 6px; }
+.card .sub { font-size: 13px; color: #8a7358; margin-top: 4px; }
+.card .mini-divider { width: 40px; height: 1px; background: #c9b18c; margin: 16px auto; }
+.card h3 { font-size: 20px; color: #4a3626; }
+.card .hint { font-size: 13px; color: #6f5b44; margin: 8px 0 20px; }
+
+.field {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff;
+  border: 1px solid #d9cbb2;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.field svg { width: 18px; height: 18px; stroke: #6f5b44; flex-shrink: 0; }
+.field input {
+  border: none; outline: none; flex: 1;
+  font-size: 14px; color: #4a3626; background: transparent;
+  font-family: inherit;
+}
+.field .eye { cursor: pointer; background: none; border: none; padding: 0; display: flex; }
+
+.btn {
+  width: 100%;
+  background: #3d2b1c;
+  color: #f5efe6;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background .25s;
+}
+.btn:hover { background: #5a4128; }
+.btn .arrow { margin-left: 8px; }
+
+.card .help { font-size: 12.5px; color: #6f5b44; margin-top: 18px; line-height: 1.5; }
+.card .foot-divider { width: 100%; height: 1px; background: #ddd0ba; margin: 18px 0 10px; }
+.card .foot { font-size: 12px; color: #8a7358; }
+.card .lema { margin-top: 6px; font-size: 13px; color: #5f4c38; font-style: italic; }
+.card .volver-portal { display: block; margin-top: 14px; font-size: 12px; color: #8a7358; text-decoration: none; }
+.card .volver-portal:hover { color: #4a3626; text-decoration: underline; }
+
+.error { color: #b03a2e; font-size: 12.5px; margin-bottom: 10px; display: none; }
+
+@media (max-width: 900px) {
+  body { flex-direction: column; justify-content: center; padding: 30px 16px; }
+  .brand { text-align: center; }
+  .brand .logo-line { justify-content: center; }
+  .brand h1 { font-size: 34px; }
+  .brand .divider { margin: 16px auto; }
+  .card { width: 100%; max-width: 400px; }
+}

@@ -1,0 +1,15 @@
+<header class="encabezado-tienda" data-context-path="${pageContext.request.contextPath}">
+    <a class="marca" href="${pageContext.request.contextPath}/tienda">
+        <span class="icono">&#9749;</span>
+        <h1>Cafe<br>Don Bosco</h1>
+    </a>
+    <nav>
+        <a href="${pageContext.request.contextPath}/tienda" class="${activo == 'inicio' ? 'activo' : ''}">Inicio</a>
+        <a href="${pageContext.request.contextPath}/tienda/menu" class="${activo == 'menu' ? 'activo' : ''}">Menu</a>
+        <a href="${pageContext.request.contextPath}/tienda/nosotros" class="${activo == 'nosotros' ? 'activo' : ''}">Nosotros</a>
+        <a class="carrito-boton" href="${pageContext.request.contextPath}/tienda/carrito" title="Carrito" aria-label="Carrito de compras">
+            &#128722;
+            <c:if test="${carritoUnidades > 0}"><span class="contador odometro">${carritoUnidades}</span></c:if>
+        </a>
+    </nav>
+</header>

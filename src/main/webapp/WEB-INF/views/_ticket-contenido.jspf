@@ -1,0 +1,64 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<div class="ticket">
+    <div class="encabezado-ticket">
+        <h2>&#9749; Cafe Don Bosco</h2>
+        <p class="ayuda">Buen cafe, mejores momentos.</p>
+        <h3 style="font-family: var(--fuente-interfaz); font-size:0.95rem;">TICKET DE COMPRA</h3>
+    </div>
+
+    <%@ include file="tienda/_stepper-estado.jspf" %>
+
+    <p>
+        <strong>Numero de pedido:</strong> #000${venta.id}<br>
+        <strong>Fecha:</strong> ${venta.fechaFormateada}<br>
+        <strong>Hora:</strong> ${venta.horaFormateada}<br>
+        <c:if test="${not empty venta.nombreCliente}">
+            <strong>Cliente:</strong> ${fn:escapeXml(venta.nombreCliente)}
+        </c:if>
+    </p>
+
+    <table class="tabla">
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cant.</th>
+            <th>Precio</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="detalle" items="${venta.detalles}">
+            <tr>
+                <td>
+                    ${fn:escapeXml(detalle.nombreProducto)}
+                    <c:if test="${not empty detalle.opciones}">
+                        <br><small class="ayuda">
+                            <c:forEach var="opcion" items="${detalle.opciones}" varStatus="est">${fn:escapeXml(opcion.nombreOpcion)}<c:if test="${not est.last}">, </c:if></c:forEach>
+                        </small>
+                    </c:if>
+                </td>
+                <td>${detalle.cantidad}</td>
+                <td>$${detalle.precioUnitarioFormateado}</td>
+                <td>$${detalle.subtotalFormateado}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <div class="totales">
+        <dl>
+            <dt>Subtotal</dt>
+            <dd>$${venta.subtotalFormateado}</dd>
+            <dt>Envio</dt>
+            <dd>$${venta.envioFormateado}</dd>
+            <dt class="total-final">Total</dt>
+            <dd class="total-final odometro">$${venta.totalFormateado}</dd>
+        </dl>
+    </div>
+
+    <p style="text-align:center; margin-top:18px;">
+        &iexcl;Gracias por tu compra!<br>
+        <small>Vuelve pronto &hearts;</small>
+    </p>
+</div>

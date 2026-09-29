@@ -1,0 +1,37 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-row"><span class="cup">&#9749;</span><strong>Cafe<br>Don Bosco</strong></div>
+        <small>Buen cafe, mejores momentos</small>
+    </div>
+    <nav class="nav">
+        <a class="${activo == 'dashboard' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/dashboard"><span class="ico">&#8962;</span>Inicio</a>
+        <a class="${activo == 'productos' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/productos"><span class="ico">&#9749;</span>Productos</a>
+        <a class="${activo == 'venta-nueva' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/venta-nueva"><span class="ico">&#128722;</span>Nueva venta</a>
+        <a class="${activo == 'historial' ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/historial-ventas"><span class="ico">&#9201;</span>Historial de ventas</a>
+        <button type="button" id="botonCerrarSesion" class="nav-logout"><span class="ico">&#8618;</span>Cerrar sesion</button>
+    </nav>
+    <div class="sidebar-foot">
+        <div class="botanical">&#9749;</div>
+        <b>Cafe Don Bosco</b><br>Sistema de mostrador<br>v1.0
+    </div>
+</aside>
+
+<dialog id="modalCerrarSesion" class="modal-cerrar-sesion" data-context-path="${pageContext.request.contextPath}">
+    <div class="cerrar-sesion-icono">&#9099;</div>
+    <h2>&#191;Deseas cerrar sesion?</h2>
+    <p class="cerrar-sesion-descripcion">Estas a punto de salir del sistema de mostrador.<br>Asegurate de haber completado las transacciones pendientes.</p>
+    <div class="cerrar-sesion-info">
+        <span class="avatar">${fn:escapeXml(fn:substring(usuario.nombre, 0, 1))}</span>
+        <div class="cerrar-sesion-datos">
+            <strong>${fn:escapeXml(usuario.nombre)} (Administrador)</strong>
+            <span>${fn:escapeXml(usuario.correo)}</span>
+        </div>
+        <span class="cerrar-sesion-activo">Activo</span>
+    </div>
+    <div class="cerrar-sesion-botones">
+        <button type="button" class="boton-admin secundario" id="botonCancelarCerrarSesion">Cancelar</button>
+        <button type="button" class="boton-admin peligro" id="botonConfirmarCerrarSesion">Si, cerrar sesion</button>
+    </div>
+</dialog>

@@ -1,0 +1,25 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:if test="${venta.estado != 'CANCELADO'}">
+    <c:set var="pasoRecibido" value="true" />
+    <c:set var="pasoPreparacion" value="${venta.estado == 'EN_PREPARACION' || venta.estado == 'LISTO' || venta.estado == 'ENTREGADO'}" />
+    <c:set var="pasoListo" value="${venta.estado == 'LISTO' || venta.estado == 'ENTREGADO'}" />
+    <div class="order-status-stepper">
+        <div class="paso-estado completado ${venta.estado == 'RECIBIDO' ? 'actual' : ''}">
+            <span class="icono-estado">&#10003;</span>
+            <span>Recibido</span>
+        </div>
+        <div class="linea-estado ${pasoPreparacion ? 'completada' : ''}"></div>
+        <div class="paso-estado ${pasoPreparacion ? 'completado' : ''} ${venta.estado == 'EN_PREPARACION' ? 'actual' : ''}">
+            <span class="icono-estado">&#9749;</span>
+            <span>En preparacion</span>
+        </div>
+        <div class="linea-estado ${pasoListo ? 'completada' : ''}"></div>
+        <div class="paso-estado ${pasoListo ? 'completado' : ''} ${venta.estado == 'LISTO' ? 'actual' : ''}">
+            <span class="icono-estado">&#10024;</span>
+            <span>Listo para retirar</span>
+        </div>
+    </div>
+</c:if>
+<c:if test="${venta.estado == 'CANCELADO'}">
+    <div class="mensaje-error" style="text-align:center;">Este pedido fue cancelado.</div>
+</c:if>

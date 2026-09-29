@@ -1,0 +1,22 @@
+<dialog id="modalVistaRapida" class="modal-vista-rapida">
+    <button type="button" class="modal-cerrar" id="qvCerrar" aria-label="Cerrar">&times;</button>
+    <div class="quick-view-cuerpo" id="qvCuerpo">
+        <div class="imagen-producto" id="qvImagen">&#9749;</div>
+        <div class="quick-view-info">
+            <span class="etiqueta" id="qvCategoria"></span>
+            <h3 id="qvNombre"></h3>
+            <p class="ayuda" id="qvDescripcion"></p>
+            <span class="precio odometro" id="qvPrecio"></span>
+            <p id="qvDisponibilidad"></p>
+            <p class="ayuda" id="qvPersonalizacion"></p>
+            <form method="post" action="${pageContext.request.contextPath}/tienda/carrito" class="form-agregar-carrito" id="qvForm">
+                <input type="hidden" name="accion" value="agregar">
+                <input type="hidden" name="productoId" id="qvProductoId" value="">
+                <input type="hidden" name="cantidad" value="1">
+                <input type="hidden" name="volver" id="qvVolver" value="">
+                <button type="submit" class="boton" style="width:100%;" id="qvBotonAgregar">&#128722; Agregar al carrito</button>
+            </form>
+            <a class="boton secundario" style="width:100%; text-align:center; margin-top:8px;" id="qvVerDetalle" href="#">Ver ficha completa</a>
+        </div>
+    </div>
+</dialog>

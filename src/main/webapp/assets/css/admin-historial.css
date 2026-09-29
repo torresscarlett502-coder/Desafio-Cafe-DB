@@ -1,0 +1,35 @@
+.encabezado-productos{margin-bottom:16px}.encabezado-productos h1{font:700 24px Georgia,serif;margin:0 0 4px}.encabezado-productos p{font-size:12px;color:#707070;margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid #e6e2de;border-radius:8px;padding:14px 15px;box-shadow:0 2px 7px rgba(77,58,45,.05)}
+.stat-label{font-size:9px;color:#6c625c;margin-bottom:7px;text-transform:uppercase;letter-spacing:.03em}
+.stat strong{display:block;font:700 20px Georgia,serif}
+.stat small{display:block;color:#897e77;font-size:9px;margin-top:2px}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;align-items:center}
+.search-wrap{height:38px;background:#fff;border:1px solid #e5dfd9;border-radius:8px;display:flex;align-items:center;padding:0 9px;box-shadow:0 2px 6px rgba(0,0,0,.03);flex:1;min-width:220px;max-width:320px}
+.search-wrap span{font-size:18px;color:#9b8c82}
+.search-wrap input{border:0;outline:0;width:100%;font-size:11px;padding-left:6px;background:transparent}
+.select-filtro{height:38px;border:1px solid #e5dfd9;border-radius:8px;padding:0 10px;font-size:11px;background:#fff;color:#4a3a32}
+.boton-exportar{height:38px;border:0;border-radius:8px;background:#53311f;color:#fff;font-weight:700;font-size:11px;padding:0 16px;cursor:pointer}
+.tabla-productos{width:100%;border-collapse:collapse;font-size:11px}
+.tabla-productos th{text-align:left;color:#666;font-weight:600;padding:10px 12px;border-bottom:1px solid #e6e2de;font-size:9px;white-space:nowrap}
+.tabla-productos td{padding:10px 12px;border-bottom:1px solid #eee;vertical-align:middle;white-space:nowrap}
+.tabla-productos tr:last-child td{border-bottom:0}
+.tabla-productos td.items{white-space:normal;max-width:260px;color:#555}
+.ticket-id{font-weight:700;color:#4b2415}
+.total-celda{font-weight:700}
+.pago{display:inline-flex;gap:5px;align-items:center}
+.pago-efectivo{color:#139348}.pago-tarjeta{color:#1687b5}.pago-transferencia{color:#5c4eb5}
+.badge{display:inline-flex;border-radius:12px;padding:4px 10px;font-size:9px;font-weight:700;white-space:nowrap}
+.badge-completado{background:#d8f8e5;color:#16884a}
+.badge-anulado{background:#ffdcdc;color:#d62424}
+.badge-en-curso{background:#fff0e4;color:#c9711b}
+.acciones-fila{display:flex;gap:10px}
+.icono-accion{border:0;background:none;cursor:pointer;font-size:14px;color:#6b5a4d;text-decoration:none}
+.sin-resultados{padding:26px;text-align:center;color:#999;font-size:11px}
+.bottom{display:flex;align-items:center;justify-content:space-between;padding:14px 4px 0;color:#8a7e75;font-size:10px}
+.pagination{display:flex;gap:7px}
+.pagination button{height:28px;min-width:30px;border:1px solid #e5dfd9;background:#fff;border-radius:6px;color:#6b615a;font-size:10px;cursor:pointer}
+.pagination button.active{background:#53311f;border-color:#53311f;color:#fff;font-weight:700}
+.pagination button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:950px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.tabla-productos{display:block;overflow-x:auto}}

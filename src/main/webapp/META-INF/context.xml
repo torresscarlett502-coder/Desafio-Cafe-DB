@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Configuracion de despliegue especifica de Tomcat (no forma parte del
+    web.xml estandar de Jakarta Servlet, que no define un atributo
+    SameSite para cookie-config). Rfc6265CookieProcessor con
+    sameSiteCookies="strict" hace que el navegador nunca envie la cookie
+    de sesion en una solicitud disparada desde otro sitio (por ejemplo,
+    un formulario que una pagina maliciosa auto-envia contra esta app),
+    que es el vector clasico de CSRF contra una aplicacion basada en
+    sesion.
+-->
+<Context>
+    <CookieProcessor className="org.apache.tomcat.util.http.Rfc6265CookieProcessor"
+                      sameSiteCookies="strict"/>
+</Context>

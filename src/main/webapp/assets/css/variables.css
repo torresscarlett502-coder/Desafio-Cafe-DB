@@ -1,0 +1,27 @@
+:root {
+    --color-crema: #f8f6f0;
+    --color-crema-oscura: #ecd9c2;
+    --color-blanco: #ffffff;
+    --color-cafe-oscuro: #2b1810;
+    --color-cafe: #4a2e1b;
+    --color-cobre: #6f4518;
+    --color-cobre-oscuro: #5a3712;
+    --color-cobre-claro: #c98a4b;
+    --color-dorado: #d4af37;
+    --color-texto: #1c120c;
+    --color-muted: #7a726a;
+    --color-exito: #2e7d32;
+    --color-exito-fondo: #e6f4ea;
+    --color-error: #9c2b1f;
+    --color-error-fondo: #fbe4e1;
+    --color-borde: #e5e0d8;
+
+    --radio-sm: 6px;
+    --radio-md: 10px;
+    --radio-lg: 14px;
+    --sombra-suave: 0 4px 12px rgba(43, 24, 16, 0.10);
+    --sombra-flotante: 0 10px 30px rgba(43, 24, 16, 0.18);
+
+    --fuente-marca: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --fuente-interfaz: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+}

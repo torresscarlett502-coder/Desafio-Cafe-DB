@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Logging estructurado con rotacion de archivos, reemplazando los
+    println/printStackTrace y el java.util.logging que se usaban antes.
+    LOG_DIR y LOG_NIVEL se pueden sobreescribir con variables de entorno;
+    por defecto los logs quedan en <catalina.base>/logs/cafedonbosco.log
+    (junto a los logs propios de Tomcat) cuando corre desplegado, o en
+    ./logs cuando corre fuera de Tomcat (por ejemplo, en las pruebas
+    unitarias).
+-->
+<configuration scan="false">
+    <property name="LOG_DIR" value="${LOG_DIR:-${catalina.base:-.}/logs}"/>
+    <property name="LOG_NIVEL" value="${LOG_NIVEL:-INFO}"/>
+
+    <appender name="CONSOLA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ARCHIVO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/cafedonbosco.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/cafedonbosco-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="${LOG_NIVEL}">
+        <appender-ref ref="CONSOLA"/>
+        <appender-ref ref="ARCHIVO"/>
+    </root>
+</configuration>

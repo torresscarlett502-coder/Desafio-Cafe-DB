@@ -1,0 +1,325 @@
+/*
+ * CAPA 1: motor de efectos visuales y motion UX, transversal a todas las
+ * vistas de /tienda/*. CSS3 puro + variables custom que efectos.js
+ * actualiza en tiempo real; nada de esto depende de una libreria externa.
+ */
+
+@property --angulo-beam {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+/* ---------- Parallax 3D de fondo ---------- */
+.bg-coffee-parallax {
+    position: fixed;
+    top: 8%;
+    right: -6%;
+    width: min(42vw, 480px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    border-radius: 50%;
+    will-change: transform;
+    transform: translateY(0) rotateX(0deg) rotateZ(0deg);
+}
+
+.hero-tienda {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-tienda > *:not(.bg-coffee-parallax):not(#vaporCanvas) {
+    position: relative;
+    z-index: 1;
+}
+
+#vaporCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ---------- Tarjetas: spotlight + 3D tilt ---------- */
+.tarjeta-producto,
+.tarjeta-categoria {
+    position: relative;
+    overflow: hidden;
+    transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.tarjeta-producto.tilt-activo,
+.tarjeta-categoria.tilt-activo {
+    transition: transform 0.08s linear;
+    box-shadow: var(--sombra-flotante);
+}
+
+.tarjeta-producto::after,
+.tarjeta-categoria::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212, 175, 55, 0.16), transparent 42%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.tarjeta-producto.spotlight-activo::after,
+.tarjeta-categoria.spotlight-activo::after {
+    opacity: 1;
+}
+
+/* ---------- Border beam (haz de luz orbitando el borde) ---------- */
+.border-beam {
+    position: relative;
+    isolation: isolate;
+}
+
+.border-beam::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--angulo-beam, 0deg), transparent 0%, var(--color-dorado) 8%, transparent 20%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotarHazBorde 4.5s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes rotarHazBorde {
+    to {
+        --angulo-beam: 360deg;
+    }
+}
+
+/* ---------- Fly-to-cart ---------- */
+.fly-item {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-crema-oscura);
+    box-shadow: var(--sombra-flotante);
+    pointer-events: none;
+    opacity: 1;
+    font-size: 1.4rem;
+    transition: transform 0.55s cubic-bezier(0.13, 0.9, 0.2, 1), opacity 0.5s ease-in 0.15s, width 0.55s ease, height 0.55s ease;
+    will-change: transform, opacity;
+}
+
+.fly-item.fly-en-vuelo {
+    opacity: 0.15;
+}
+
+/* ---------- Badge pulse ---------- */
+.cart-badge-bounce {
+    animation: cartPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cartPulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    30% {
+        transform: scale(1.45) rotate(-10deg);
+    }
+    60% {
+        transform: scale(0.9) rotate(6deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* ---------- Odometro (conteo animado de numeros reales) ---------- */
+.odometro {
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+}
+
+/* ---------- Cursor magnetico ---------- */
+.cursor-magnetico {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--color-dorado);
+    pointer-events: none;
+    z-index: 10001;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+    mix-blend-mode: difference;
+    opacity: 0;
+}
+
+.cursor-magnetico.cursor-listo {
+    opacity: 1;
+}
+
+.cursor-magnetico.cursor-sobre-boton {
+    width: 46px;
+    height: 46px;
+    background-color: rgba(212, 175, 55, 0.35);
+}
+
+@media (pointer: coarse) {
+    .cursor-magnetico {
+        display: none;
+    }
+}
+
+/* ---------- Toast notifications (estilo espresso) ---------- */
+.toast-contenedor {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 320px;
+}
+
+.toast-espresso {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-cafe-oscuro);
+    color: var(--color-crema);
+    padding: 14px 18px;
+    border-radius: var(--radio-md);
+    box-shadow: var(--sombra-flotante);
+    font-size: 0.9rem;
+    animation: toastEntrada 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toast-espresso .toast-barra {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--color-dorado);
+    animation: toastProgress 3s linear forwards;
+}
+
+.toast-espresso.toast-error {
+    background-color: var(--color-error);
+}
+
+.toast-espresso.toast-error .toast-barra {
+    background-color: var(--color-crema);
+}
+
+/* ---------- Confirmacion breve en el boton de agregar al carrito ---------- */
+.boton-agregado {
+    background-color: var(--color-exito) !important;
+    border-color: var(--color-exito) !important;
+    color: #fff !important;
+}
+
+@keyframes toastEntrada {
+    from {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastProgress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+/* ---------- Ripple (onda concentrica al hacer clic) ---------- */
+.boton-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-circulo {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.55);
+    transform: scale(0);
+    animation: rippleExpandir 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes rippleExpandir {
+    to {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* ---------- Modal de confirmacion generico ---------- */
+.modal-confirmacion {
+    border: none;
+    border-radius: var(--radio-lg);
+    padding: 24px;
+    max-width: 360px;
+    width: calc(100% - 40px);
+    box-shadow: var(--sombra-flotante);
+}
+
+.modal-confirmacion::backdrop {
+    background-color: rgba(28, 18, 12, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+.modal-confirmacion-acciones {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    justify-content: flex-end;
+}
+
+/* ---------- Skeleton loading ---------- */
+.skeleton-bloque {
+    background: linear-gradient(90deg, var(--color-crema-oscura) 25%, var(--color-borde) 37%, var(--color-crema-oscura) 63%);
+    background-size: 400% 100%;
+    animation: loadingShimmer 1.4s ease infinite;
+    border-radius: var(--radio-sm);
+}
+
+@keyframes loadingShimmer {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-coffee-parallax,
+    .tarjeta-producto,
+    .tarjeta-categoria,
+    .fly-item,
+    .cart-badge-bounce,
+    .border-beam::before,
+    .toast-espresso,
+    .skeleton-bloque {
+        animation: none !important;
+        transition: none !important;
+    }
+}

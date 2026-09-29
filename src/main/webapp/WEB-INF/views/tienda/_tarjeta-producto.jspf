@@ -1,0 +1,30 @@
+<div class="tarjeta-producto ${producto.disponible ? '' : 'agotada'}">
+    <button type="button" class="boton-vista-rapida" data-producto-id="${producto.id}" title="Vista rapida" aria-label="Vista rapida de ${fn:escapeXml(producto.nombre)}">&#128065;</button>
+    <c:if test="${not producto.disponible}"><span class="badge-agotado">Agotado</span></c:if>
+    <c:choose>
+        <c:when test="${not empty producto.imagen}">
+            <div class="imagen-producto" style="background-image:url('${pageContext.request.contextPath}${fn:escapeXml(producto.imagen)}');background-size:cover;background-position:center;"></div>
+        </c:when>
+        <c:otherwise>
+            <div class="imagen-producto">&#9749;</div>
+        </c:otherwise>
+    </c:choose>
+    <span class="etiqueta">${fn:escapeXml(producto.categoriaNombre)}</span>
+    <h3>${fn:escapeXml(producto.nombre)}</h3>
+    <p class="ayuda">${fn:escapeXml(producto.descripcion)}</p>
+    <span class="precio odometro">$${producto.precioFormateado}</span>
+    <c:choose>
+        <c:when test="${producto.disponible}"><span class="disponible">Disponible</span></c:when>
+        <c:otherwise><span class="no-disponible">Agotado</span></c:otherwise>
+    </c:choose>
+    <a class="boton secundario" href="${pageContext.request.contextPath}/tienda/producto?id=${producto.id}">Ver detalle</a>
+    <form method="post" action="${pageContext.request.contextPath}/tienda/carrito" class="form-agregar-carrito">
+        <input type="hidden" name="accion" value="agregar">
+        <input type="hidden" name="productoId" value="${producto.id}">
+        <input type="hidden" name="cantidad" value="1">
+        <c:set var="volverUri" value="${not empty requestScope['jakarta.servlet.forward.request_uri'] ? requestScope['jakarta.servlet.forward.request_uri'] : pageContext.request.requestURI}" />
+        <c:set var="volverQuery" value="${requestScope['jakarta.servlet.forward.query_string']}" />
+        <input type="hidden" name="volver" value="${volverUri}${not empty volverQuery ? '?' : ''}${volverQuery}">
+        <button type="submit" class="boton" style="width:100%;" ${producto.disponible ? '' : 'disabled'}>&#128722; Agregar al carrito</button>
+    </form>
+</div>
